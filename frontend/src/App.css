@@ -1,0 +1,30 @@
+:root {
+    --color-black: #020203;
+    --font-primary: "Roboto", serif;
+    --font-size-base: 1.6rem;
+    --font-size-navbar: 1.8rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: #000;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-optical-sizing: auto;
+}
+
+@media (min-width: 905px) {
+    :root {
+        --font-size-navbar: 2.4rem;
+    }
+}
