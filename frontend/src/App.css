@@ -24,6 +24,10 @@ body {
     font-optical-sizing: auto;
 }
 
+.container {
+    display: flex;
+}
+
 @media (min-width: 905px) {
     :root {
         --font-size-navbar: 2.4rem;

@@ -1,4 +1,5 @@
 import Header from './components/header/Header'
+import Main from './components/main/Main'
 import Sidebar from './components/sidebar/Sidebar'
 import './App.css'
 
@@ -6,12 +7,11 @@ function App() {
   return (
     <>
       <Header />
-
-      <Sidebar />
-
-      <h1>Bonjour</h1>
-
-      <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+      
+      <div className="container">
+        <Main />
+        <Sidebar />
+      </div>
     </>
   )
 }
