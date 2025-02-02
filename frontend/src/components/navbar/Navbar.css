@@ -23,6 +23,11 @@
     font-size: var(--font-size-navbar);
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--color-red);
 }
 
 @media (min-width: 905px) {

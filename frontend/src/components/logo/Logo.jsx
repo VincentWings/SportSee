@@ -1,4 +1,4 @@
-import sportseeLogo from "../../assets/sportsee.svg";
+import sportseeLogo from "../../assets/images/sportsee.svg";
 import "./Logo.css";
 
 function Logo() {
