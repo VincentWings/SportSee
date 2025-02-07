@@ -1,11 +1,10 @@
 import './Main.css'
+import Dashboard from '../dashboard/Dashboard'
 
 function Main() {
     return (
         <main>
-            <h1>Bonjour</h1>
-
-            <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+            <Dashboard />
         </main>
     )
 }
