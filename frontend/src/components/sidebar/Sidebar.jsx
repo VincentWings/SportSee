@@ -1,43 +1,55 @@
-import iconCycling from "../../assets/images/icon-cycling.svg";
-import iconSwimming from "../../assets/images/icon-swimming.svg";
-import iconWorkout from "../../assets/images/icon-workout.svg";
-import iconYoga from "../../assets/images/icon-yoga.svg";
-import "./Sidebar.css";
+import { Link } from "react-router-dom" // Importing Link for navigation
+import iconCycling from "../../assets/images/icon-cycling.svg" // Importing cycling icon
+import iconSwimming from "../../assets/images/icon-swimming.svg" // Importing swimming icon
+import iconWorkout from "../../assets/images/icon-workout.svg" // Importing workout icon
+import iconYoga from "../../assets/images/icon-yoga.svg" // Importing yoga icon
+
+import "./Sidebar.css" // Importing sidebar CSS styles
 
 function Sidebar() {
-    const currentYear = new Date().getFullYear();
+  // Get the current year dynamically
+  const currentYear = new Date().getFullYear()
 
-    return (
-        <aside className="sidebar">
-            <ul>
-                <li>
-                    <a href="/" target="_blank">
-                        <img src={iconYoga} className="icon" alt="Yoga" />
-                    </a>
-                </li>
+  // Sidebar component render
+  return (
+    <aside className="sidebar">
+      {/* Sidebar menu with activity links */}
+      <ul>
+        {/* Link for Yoga activity */}
+        <li>
+          <Link to="/">
+            <img src={iconYoga} className="icon" alt="Yoga" />
+          </Link>
+        </li>
 
-                <li>
-                    <a href="/" target="_blank">
-                        <img src={iconSwimming} className="icon" alt="Swimming" />
-                    </a>
-                </li>
+        {/* Link for Swimming activity */}
+        <li>
+          <Link to="/">
+            <img src={iconSwimming} className="icon" alt="Swimming" />
+          </Link>
+        </li>
 
-                <li>
-                    <a href="/" target="_blank">
-                        <img src={iconCycling} className="icon" alt="Cycling" />
-                    </a>
-                </li>
+        {/* Link for Cycling activity */}
+        <li>
+          <Link to="/">
+            <img src={iconCycling} className="icon" alt="Cycling" />
+          </Link>
+        </li>
 
-                <li>
-                    <a href="/" target="_blank">
-                        <img src={iconWorkout} className="icon" alt="Workout" />
-                    </a>
-                </li>
-            </ul>
+        {/* Link for Workout activity */}
+        <li>
+          <Link to="/">
+            <img src={iconWorkout} className="icon" alt="Workout" />
+          </Link>
+        </li>
+      </ul>
 
-            <div className="copyright">Copyright, SportSee {currentYear}</div>
-        </aside>
-    );
+      {/* Footer with copyright */}
+      <footer className="copyright">
+        Copyright, SportSee {currentYear}
+      </footer>
+    </aside>
+  )
 }
 
-export default Sidebar;
+export default Sidebar

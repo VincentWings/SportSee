@@ -1,14 +1,15 @@
-import sportseeLogo from "../../assets/images/sportsee.svg";
-import "./Logo.css";
+import { NavLink } from "react-router-dom"
+import sportseeLogo from "../../assets/images/sportsee.svg"
+import "./Logo.css"
 
 function Logo() {
     return (
         <div className="logo">
-            <a href="/" target="_blank">
+            <NavLink to="/">
                 <img src={sportseeLogo} className="logo" alt="SportSee logo" />
-            </a>
+            </NavLink>
         </div>
-    );
+    )
 }
 
-export default Logo;
+export default Logo
