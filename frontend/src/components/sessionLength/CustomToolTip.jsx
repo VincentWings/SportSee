@@ -1,7 +1,18 @@
 import PropTypes from "prop-types"
 import "./CustomToolTip.css"
 
-// Custom tooltip component for displaying session length
+/**
+ * CustomToolTip component that displays the session length in a tooltip.
+ * 
+ * This component is designed to be used with chart libraries like Recharts to
+ * display the length of a session when hovering over a chart item.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.active - Determines if the tooltip is active and should be displayed
+ * @param {Array} props.payload - The data passed to the tooltip, typically containing the session length
+ * @returns {JSX.Element|null} The tooltip with session length or null if not active or no data
+ */
 function CustomToolTip({ active, payload }) {
   // Check if the tooltip should be visible and if there's data to display
   if (active && payload && payload.length) {

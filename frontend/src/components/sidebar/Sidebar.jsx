@@ -1,19 +1,29 @@
-import { Link } from "react-router-dom" // Importing Link for navigation
-import iconCycling from "../../assets/images/icon-cycling.svg" // Importing cycling icon
-import iconSwimming from "../../assets/images/icon-swimming.svg" // Importing swimming icon
-import iconWorkout from "../../assets/images/icon-workout.svg" // Importing workout icon
-import iconYoga from "../../assets/images/icon-yoga.svg" // Importing yoga icon
+/**
+ * Sidebar component displays a navigation menu with activity links and a footer.
+ * It also shows the current year in the footer dynamically.
+ * @component
+ */
 
-import "./Sidebar.css" // Importing sidebar CSS styles
+import { Link } from "react-router-dom" // Importing Link component for navigation
+import iconCycling from "../../assets/images/icon-cycling.svg" // Importing the cycling icon
+import iconSwimming from "../../assets/images/icon-swimming.svg" // Importing the swimming icon
+import iconWorkout from "../../assets/images/icon-workout.svg" // Importing the workout icon
+import iconYoga from "../../assets/images/icon-yoga.svg" // Importing the yoga icon
 
+import "./Sidebar.css" // Importing CSS styles for the sidebar
+
+/**
+ * Sidebar displays navigation links for different activities and the current year in the footer.
+ * It uses icons for Yoga, Swimming, Cycling, and Workout activities.
+ * @returns {JSX.Element} The Sidebar component.
+ */
 function Sidebar() {
-  // Get the current year dynamically
+  // Dynamically getting the current year
   const currentYear = new Date().getFullYear()
 
-  // Sidebar component render
   return (
     <aside className="sidebar">
-      {/* Sidebar menu with activity links */}
+      {/* Sidebar menu with links to various activities */}
       <ul>
         {/* Link for Yoga activity */}
         <li>
@@ -44,7 +54,7 @@ function Sidebar() {
         </li>
       </ul>
 
-      {/* Footer with copyright */}
+      {/* Footer displaying copyright information with the current year */}
       <footer className="copyright">
         Copyright, SportSee {currentYear}
       </footer>

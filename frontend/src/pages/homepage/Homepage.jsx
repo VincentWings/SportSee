@@ -2,7 +2,10 @@
 import { Link } from "react-router-dom" // React Router's Link for navigation
 import "./Homepage.css" // Importing the CSS for styling
 
-// Homepage function component
+/**
+ * Homepage component displays a list of users with links to their individual pages.
+ * It dynamically generates user links based on an array of users.
+ */
 function Homepage() {
   // Defining an array of users to dynamically generate links
   const users = [
@@ -12,13 +15,16 @@ function Homepage() {
 
   return (
     <>
+      {/* Display the main title of the page */}
       <h1>Choisir un utilisateur</h1>
 
       <div className="user-selector">
-
         {/* Loop through the users array to generate user links */}
         {users.map((user) => (
+          // Link to the individual user page with a dynamic user ID
           <Link to={`/user/${user.id}`} key={user.id} className="user-link">
+            
+            {/* Icon for the user */}
             <div className="user-image">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +33,7 @@ function Homepage() {
                 viewBox="0 0 16 16"
                 className="bi bi-person-circle"
               >
+                {/* User icon: circle with user silhouette */}
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                 <path
                   fillRule="evenodd"
@@ -35,6 +42,7 @@ function Homepage() {
               </svg>
             </div>
 
+            {/* Display the user’s name */}
             <p>{user.name}</p>
           </Link>
         ))}
@@ -43,4 +51,8 @@ function Homepage() {
   )
 }
 
+/**
+ * Export the Homepage component so it can be used in other parts of the application.
+ * This allows it to be rendered when the corresponding route is accessed.
+ */ 
 export default Homepage

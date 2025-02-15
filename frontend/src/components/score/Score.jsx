@@ -5,7 +5,17 @@ import { getUserMainData } from "../../service/MockData"
 
 import "./Score.css"
 
-// Component to display the user's score in a pie chart
+/**
+ * Score component that displays the user's score in a pie chart.
+ * 
+ * The component fetches user data based on the provided userId and shows their score.
+ * If the score data is unavailable or an error occurs, an error message is displayed.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.userId - The ID of the user whose score data is fetched
+ * @returns {JSX.Element} A pie chart displaying the user's score
+ */
 const Score = ({ userId }) => {
   // State for storing the score, loading state, and error message
   const [score, setScore] = useState(null)

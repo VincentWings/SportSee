@@ -6,15 +6,28 @@ import CustomToolTip from "./CustomToolTip"
 
 import "./SessionLength.css"
 
+/**
+ * SessionLength component to display average session length over a week.
+ * This component fetches session data, formats it, and displays it in a line chart.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.userId - The ID of the user whose session data is displayed
+ * @returns {JSX.Element} The line chart displaying the session length data
+ */
 const SessionLength = ({ userId }) => {
   // State to hold session data, loading state, and errors
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [data, setData] = useState([])  // Stores the session data to be displayed
+  const [loading, setLoading] = useState(true)  // Tracks loading state
+  const [error, setError] = useState(null)  // Stores any error messages
 
-  // Effect to fetch data when the component mounts
+  /**
+   * Fetches session data when the component mounts or when userId changes.
+   * It maps days of the week to their corresponding abbreviations.
+   * 
+   * The fetched data is formatted before being stored in state.
+   */
   useEffect(() => {
-    // Mapping days to their corresponding weekday abbreviation
     const dayToWeekday = {
       1: "L",
       2: "M",
@@ -59,7 +72,19 @@ const SessionLength = ({ userId }) => {
   if (loading) return <p>Chargement des données...</p>
   if (error) return <p>{error}</p>
 
-  // Custom cursor component for the chart hover effect
+  /**
+   * Custom cursor component for the chart hover effect.
+   * 
+   * This component creates a transparent rectangle to indicate the active region 
+   * when hovering over the chart.
+   * 
+   * @component
+   * @param {Object} props - Component props
+   * @param {Array} props.points - Points from the chart where the cursor is active
+   * @param {number} props.width - Width of the chart container
+   * @param {number} props.height - Height of the chart container
+   * @returns {JSX.Element} A rectangle representing the cursor hover effect
+   */
   const CustomCursor = ({ points, width, height }) => {
     if (!points || points.length === 0) return null
     const { x } = points[0]

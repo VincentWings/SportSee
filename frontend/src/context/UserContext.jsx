@@ -2,17 +2,28 @@
 import { createContext, useContext, useState } from "react"
 import PropTypes from "prop-types"
 
-// Creating a context to manage and share user data across the application
+/**
+ * Create a context for managing user data across the application
+ * This context will be used to provide and consume the userId state.
+ */
 const UserContext = createContext()
 
-// Custom hook to easily access the UserContext in any component
+/**
+ * Custom hook to access the UserContext
+ * @returns { Object } The context value containing userId and setUserId
+ */
 export const useUser = () => {
   // The useContext hook allows us to read and subscribe to the context
   return useContext(UserContext)
 }
 
-// UserProvider component that will be used to wrap the app
-// This component provides the user data to all components inside it
+/**
+ * UserProvider component
+ * This component is used to wrap the app and provide user data context to all child components.
+ * @param { Object } props - The component props
+ * @param { React.ReactNode } props.children - The child components to be rendered within the provider
+ * @returns { JSX.Element } - The rendered UserContext provider with child components
+ */
 export const UserProvider = ({ children }) => {
   // useState hook to hold the current userId, initially set to null
   const [userId, setUserId] = useState(null)
@@ -27,8 +38,10 @@ export const UserProvider = ({ children }) => {
   )
 }
 
-// PropTypes are used to validate that the 'children' prop is correctly passed
-// 'children' must be a valid React node (such as a component, element, or string)
+/**
+ * PropTypes validation for UserProvider component
+ * Ensures that 'children' is a valid React node (e.g., component, element, string)
+ */
 UserProvider.propTypes = {
   children: PropTypes.node.isRequired, // children is required and must be a valid React element
 }

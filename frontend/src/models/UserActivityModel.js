@@ -1,6 +1,17 @@
-// Define the UserActivityModel class to handle user activity data
+/**
+ * UserActivityModel class to handle and structure user activity data
+ * This class processes and stores user activity information, such as sessions, weight, and calories.
+ */
 class UserActivityModel {
-	// Constructor to initialize user activity model
+	/**
+	 * Constructor to initialize the UserActivityModel
+	 * @param { Object } data - The data object containing user activity information
+	 * @param { String } data.userId - The unique identifier for the user
+	 * @param { Array } data.sessions - An array of session objects with activity details
+	 * @param { String } data.sessions.day - The date of the session
+	 * @param { Number } data.sessions.kilogram - The weight recorded during the session
+	 * @param { Number } data.sessions.calories - The calories burned during the session
+	 */
 	constructor(data) {
 	  // Initialize userId from the provided data
 	  this.userId = data.userId
@@ -14,5 +25,8 @@ class UserActivityModel {
 	}
   }
   
-  // Export the UserActivityModel class for use in other parts of the application
-  export default UserActivityModel
+  /**
+   * Export the UserActivityModel class for use in other parts of the application
+   * This allows other files to import and use the UserActivityModel to work with user data.
+   */
+  export default UserActivityModel  
