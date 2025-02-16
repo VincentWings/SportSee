@@ -29,7 +29,7 @@ SportSee is a coaching analytics dashboard that allows users to track their work
 
 ### 1️⃣ Clone the project  
 ```bash  
-git clone https://github.com/[YourGitHub]/SportSee.git  
+git clone https://github.com/VincentWings/SportSee.git  
 cd SportSee  
 ```  
 
