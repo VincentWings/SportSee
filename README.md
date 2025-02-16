@@ -23,4 +23,42 @@ SportSee is a coaching analytics dashboard that allows users to track their work
 - **Frontend Development**: Implementing a structured React application with reusable components.  
 - **API Integration**: Fetching, processing, and standardizing data from an external API.  
 - **Data Visualization**: Creating advanced graphical elements using Recharts.  
-- **Code Documentation**: Writing clear and structured JSDoc comments to improve readability and maintainability. 
+- **Code Documentation**: Writing clear and structured JSDoc comments to improve readability and maintainability.  
+
+## Installation & Usage  
+
+### 1️⃣ Clone the project  
+```bash  
+git clone https://github.com/[YourGitHub]/SportSee.git  
+cd SportSee  
+```  
+
+### 2️⃣ Backend Installation  
+```bash  
+cd backend  
+yarn install  
+# Start the server  
+yarn dev  
+```  
+The API will be available at [http://localhost:3000/](http://localhost:3000/)
+
+### 3️⃣ Frontend Installation  
+```bash  
+cd frontend  
+npm install  
+# Start the React application  
+npm run dev  
+```  
+The application will be accessible at [http://localhost:5173/](http://localhost:5173/)
+
+## 🔗 Backend API  
+
+The API provides 4 endpoints:  
+
+- `GET /user/:userId` → Fetches user information.  
+- `GET /user/:userId/activity` → Fetches daily activity data.  
+- `GET /user/:userId/average-sessions` → Fetches average session durations.  
+- `GET /user/:userId/performance` → Fetches user performance metrics.  
+
+## Error Handling  
+- **API Unavailable** → Mocked data is used as a fallback.
