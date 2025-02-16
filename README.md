@@ -61,4 +61,4 @@ The API provides 4 endpoints:
 - `GET /user/:userId/performance` → Fetches user performance metrics.  
 
 ## Error Handling  
-- **API Unavailable** → Mocked data is used as a fallback.
+- **API Unavailable** → Mocked data is used as a fallback. 
