@@ -51,7 +51,7 @@ npm run dev
 ```  
 The application will be accessible at [http://localhost:5173/](http://localhost:5174/)
 
-## 🔗 Backend API  
+## Backend API  
 
 The API provides 4 endpoints:  
 
