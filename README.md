@@ -49,7 +49,7 @@ npm install
 # Start the React application  
 npm run dev  
 ```  
-The application will be accessible at [http://localhost:5173/](http://localhost:5173/)
+The application will be accessible at [http://localhost:5173/](http://localhost:5174/)
 
 ## 🔗 Backend API  
 
