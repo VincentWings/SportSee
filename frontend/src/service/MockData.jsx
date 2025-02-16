@@ -1,37 +1,16 @@
 /**
- * A flag to toggle between using mock data or real API data.
- * @type {boolean}
- */
-const useMockData = false
-
-/**
- * Base URL for the real API
- * @type {string}
- */
-const ApiBaseUrl = "http://localhost:3000"
-
-/**
  * Import data models
  */
-import UserDataModel from "../models/UserDataModel"
-import UserActivityModel from "../models/UserActivityModel"
-import UserAverageSessionsModel from "../models/UserAverageSessionsModel"
-import UserPerformanceModel from "../models/UserPerformanceModel"
+import UserDataModel from "../models/UserDataModel";
+import UserActivityModel from "../models/UserActivityModel";
+import UserAverageSessionsModel from "../models/UserAverageSessionsModel";
+import UserPerformanceModel from "../models/UserPerformanceModel";
 
 /**
- * Function to fetch mock data from the public folder.
- * @returns {Promise<Object|null>} The mock data as an object or null if there's an error.
+ * Determine if the backend should be used (from .env)
  */
-const fetchMockData = async () => {
-  try {
-    const response = await fetch("/mockData.json")
-    if (!response.ok) throw new Error("Failed to load mock data")
-    return await response.json() // Return mock data
-  } catch (error) {
-    console.error("Error fetching mock data:", error)
-    return null // Return null if there's an error
-  }
-}
+const useBackend = import.meta.env.VITE_USE_BACKEND === "true";
+const ApiBaseUrl = useBackend ? "http://localhost:3000" : null;
 
 /**
  * Function to fetch real API data.
@@ -39,74 +18,107 @@ const fetchMockData = async () => {
  * @returns {Promise<Object|null>} The API response data as an object or null if there's an error.
  */
 const fetchApiData = async (endpoint) => {
+  if (!ApiBaseUrl) return null; // Avoid API call if disabled
+
   try {
-    const response = await fetch(`${ApiBaseUrl}${endpoint}`)
-    if (!response.ok) throw new Error(`Error fetching data from ${endpoint}`)
-    return await response.json() // Return parsed API data
+    const response = await fetch(`${ApiBaseUrl}${endpoint}`);
+    if (!response.ok) throw new Error(`Error fetching data from ${endpoint}`);
+    return await response.json(); // Return parsed API data
   } catch (error) {
-    console.error(`Error fetching data from ${endpoint}:`, error)
-    return null // Return null if there's an error
+    return null; // Return null to trigger mock data fallback
   }
-}
+};
 
 /**
- * Generic function to fetch user data (either from mock data or API).
+ * Function to fetch mock data from the public folder.
+ * @returns {Promise<Object|null>} The mock data as an object or null if there's an error.
+ */
+const fetchMockData = async () => {
+  try {
+    const response = await fetch("/mockData.json");
+    if (!response.ok) throw new Error("Failed to load mock data");
+    return await response.json(); // Return mock data
+  } catch (error) {
+    return null; // Return null if there's an error
+  }
+};
+
+/**
+ * Generic function to fetch user data (tries API first, then mock data if needed).
  * @param {number|string} userId The user ID to fetch data for.
  * @param {string} endpoint The API endpoint or mock data key.
  * @param {Function} model The data model to use for the fetched data.
  * @returns {Promise<Object|null>} An instance of the model with fetched data or null if no data is found.
  */
 const getUserData = async (userId, endpoint, model) => {
-  let data
+  let data = null;
 
-  // If using mock data, fetch it from the mockData.json file
-  if (useMockData) {
-    const mockData = await fetchMockData()
-    if (mockData && mockData[endpoint]) {
-      // Find the user data matching the userId
-      data = mockData[endpoint].find(item => item.userId === parseInt(userId, 10))
+  // 1️⃣ Si le backend est activé, on tente l'API
+  if (useBackend) {
+    const apiData = await fetchApiData(`${endpoint.replace("{userId}", userId)}`);
+    if (apiData) {
+      data = apiData.data;
     }
   }
 
-  // If mock data is not available or using real API, fetch data from the API
+  // 2️⃣ Si l'API ne fonctionne pas ou est désactivée, on passe aux données mock
   if (!data) {
-    const apiData = await fetchApiData(`${endpoint.replace("{userId}", userId)}`)
-    data = apiData ? apiData.data : null
+    const mockData = await fetchMockData();
+    if (mockData) {
+      const endpointMap = {
+        "/user/{userId}": "USER_MAIN_DATA",
+        "/user/{userId}/activity": "USER_ACTIVITY",
+        "/user/{userId}/average-sessions": "USER_AVERAGE_SESSIONS",
+        "/user/{userId}/performance": "USER_PERFORMANCE",
+      };
+
+      const dataKey = endpointMap[endpoint];
+      if (mockData[dataKey]) {
+        data =
+          dataKey === "USER_MAIN_DATA"
+            ? mockData[dataKey].find((item) => item.id === parseInt(userId, 10))
+            : mockData[dataKey].find((item) => item.userId === parseInt(userId, 10));
+      }
+    }
   }
 
-  // If data is found, return the model with that data
+  // 3️⃣ Retourne les données ou un message d'erreur
   if (data) {
-    return new model(data)
+    return new model(data);
   } else {
-    console.error(`No data found for userId ${userId}`)
-    return null // Return null if no data is found
+    console.error(`No data found for userId ${userId} (API & mock data failed)`);
+    return null;
   }
-}
+};
 
 /**
  * Fetch user main data using the generic getUserData function.
  * @param {number|string} userId The user ID to fetch data for.
  * @returns {Promise<UserDataModel|null>} An instance of UserDataModel with fetched data or null.
  */
-export const getUserMainData = (userId) => getUserData(userId, "/user/{userId}", UserDataModel)
+export const getUserMainData = (userId) =>
+  getUserData(userId, "/user/{userId}", UserDataModel);
 
 /**
  * Fetch user activity data using the generic getUserData function.
  * @param {number|string} userId The user ID to fetch data for.
  * @returns {Promise<UserActivityModel|null>} An instance of UserActivityModel with fetched data or null.
  */
-export const getUserActivity = (userId) => getUserData(userId, "/user/{userId}/activity", UserActivityModel)
+export const getUserActivity = (userId) =>
+  getUserData(userId, "/user/{userId}/activity", UserActivityModel);
 
 /**
  * Fetch user average sessions data using the generic getUserData function.
  * @param {number|string} userId The user ID to fetch data for.
  * @returns {Promise<UserAverageSessionsModel|null>} An instance of UserAverageSessionsModel with fetched data or null.
  */
-export const getUserAverageSessions = (userId) => getUserData(userId, "/user/{userId}/average-sessions", UserAverageSessionsModel)
+export const getUserAverageSessions = (userId) =>
+  getUserData(userId, "/user/{userId}/average-sessions", UserAverageSessionsModel);
 
 /**
  * Fetch user performance data using the generic getUserData function.
  * @param {number|string} userId The user ID to fetch data for.
  * @returns {Promise<UserPerformanceModel|null>} An instance of UserPerformanceModel with fetched data or null.
  */
-export const getUserPerformance = (userId) => getUserData(userId, "/user/{userId}/performance", UserPerformanceModel)
+export const getUserPerformance = (userId) =>
+  getUserData(userId, "/user/{userId}/performance", UserPerformanceModel);
