@@ -37,9 +37,11 @@ const fetchMockData = async () => {
   try {
     const response = await fetch("/mockData.json");
     if (!response.ok) throw new Error("Failed to load mock data");
-    return await response.json(); // Return mock data
+    const json = await response.json();
+    return json;
   } catch (error) {
-    return null; // Return null if there's an error
+    console.error(error);
+    return null;
   }
 };
 
@@ -53,7 +55,7 @@ const fetchMockData = async () => {
 const getUserData = async (userId, endpoint, model) => {
   let data = null;
 
-  // 1️⃣ Si le backend est activé, on tente l'API
+  // 1️⃣ If the backend is enabled, try fetching from the API
   if (useBackend) {
     const apiData = await fetchApiData(`${endpoint.replace("{userId}", userId)}`);
     if (apiData) {
@@ -61,7 +63,7 @@ const getUserData = async (userId, endpoint, model) => {
     }
   }
 
-  // 2️⃣ Si l'API ne fonctionne pas ou est désactivée, on passe aux données mock
+  // 2️⃣ If the API fails or is disabled, fallback to mock data
   if (!data) {
     const mockData = await fetchMockData();
     if (mockData) {
@@ -82,7 +84,7 @@ const getUserData = async (userId, endpoint, model) => {
     }
   }
 
-  // 3️⃣ Retourne les données ou un message d'erreur
+  // 3️⃣ Return data or an error message
   if (data) {
     return new model(data);
   } else {
