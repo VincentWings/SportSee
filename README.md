@@ -36,7 +36,7 @@ cd SportSee
 ### 2️⃣ Backend Installation  
 ```bash  
 cd backend  
-yarn install  
+yarn
 # Start the server  
 yarn dev  
 ```  
